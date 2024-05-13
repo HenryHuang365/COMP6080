@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Slackr</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- You can add your styles and scripts here -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <script type="module" src="src/main.js"></script>
+  <link rel="stylesheet" type="text/css" media="screen" href="styles/provided.css" />
+  <script type="module" src="src/helpers.js"></script>
+  <script type="module" src="src/channel.js"></script>
+</head>
+
+<body>
+  <!-- This is an example app structure, you can modify this as much as you choose -->
+  <header class="banner">
+    <h1>Slackr</h1>
+  </header>
+  <main role="main">
+    <!-- app goes here -->
+
+    <!-- errpr popup -->
+    <!-- Below modal code copied from Bootstrap: https://getbootstrap.com/docs/5.0/components/modal/ -->
+    <div id="popup" class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Message</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p id="popup-content">Error message</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="button" class="btn btn-primary">Okay</button> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- dashboard -->
+    <div id="dashboard" class="hide">
+      <div id="dashboard-banner">
+        <h1>dashboard</h1>
+        <button type="button" id="logout-submit">Logout</button> 
+      </div> 
+      
+      <!-- create new channel button -->
+      <div id="channel-create">
+        <h3>Channels</h3>
+        <button type="button" id="create-channel">Create</button>
+      </div> 
+    
+      <!-- Channels -->
+      <div id="dashboard-channels">    
+        <!-- Public channels -->
+        <div id="public-channels" class="hide">
+          <button type="button" id="private-channel">Private</button>
+          <div id="public-channels-list"></div>
+        </div>
+        <!-- private channels -->
+        <div id="private-channels" class="hide">
+          <button type="button" id="public-channel">Public</button>
+          <div id="private-channels-list"></div>
+        </div>
+
+        <!-- channel details form -->
+        <form id="channel-details" class="hide">
+          <h3>Channel Details</h3>
+          <div>
+            <label for="channel-name" class="form-label">Channel Name</label>
+            <input type="text" class="form-control" id="channel-name" value="">
+          </div>   
+          <div>
+            <label for="channel-description" class="form-label">Channel Description</label>
+            <input type="text" class="form-control" id="channel-description" value="">
+          </div>  
+          <div>
+              <label class="form-label">Channel Private</label>
+              <div id="channel-private" class="form-control"></div>
+          </div>   
+          <div>
+              <label class="form-label">Channel Timestamp</label>
+              <div id="channel-timestamp" class="form-control"></div>
+          </div>   
+          <div>
+              <label class="form-label">Channel Creator</label>
+              <div id="channel-creator" class="form-control"></div>
+          </div>    
+          <button type="button" id="cancel-channel-details">Cancel</button> 
+          <button type="button" id="save-channel-details">Save</button> 
+        </form>
+
+        <!-- create a new channel form -->
+        <form id="new-channel" class="hide">
+          <h3>Input Channel Details</h3>
+          <div>
+            <label for="new-channel-name" class="form-label">Channel Name</label>
+            <input type="text" class="form-control" id="new-channel-name" value="Channel1">
+          </div>
+          <div>
+            <label for="new-channel-private" class="form-label">Private (true/false)</label>
+            <input type="text" class="form-control" id="new-channel-private" value="false">
+          </div>
+          <div>
+            <label for="new-channel-description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="new-channel-description" value="Channel1">
+          </div>
+          <button type="button" id="cancel-create-channel">Cancel</button> 
+          <button type="button" id="submit-create-channel">Submit</button> 
+        </form> 
+      </div>
+
+    </div>
+
+    <!-- Register -->
+    <div id="register" class="hide">
+      <h3>Register</h3>
+      <!-- The register and login form copied from Bootstrap: https://getbootstrap.com/docs/5.3/forms/overview/#overview    -->
+      <form class="register-form">
+        <div class="register-email">
+          <label for="register-email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="register-email" aria-describedby="emailHelp" value="jinghuang3333@gmail.com">
+        </div>
+        <div class="register-name">
+          <label for="register-name" class="form-label">Name</label>
+          <input type="text" class="form-control" id="register-name" value="jinghuang">
+        </div>
+        <div class="register-password">
+          <label for="register-password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="register-password" value="1234abcd">
+        </div>
+        <div class="regitser-confirm-password">
+          <label for="regitser-confirm-password" class="form-label">Confirm Password</label>
+          <input type="password" class="form-control" id="regitser-confirm-password" value="1234abcd">
+        </div>  
+        <button type="button" id="register-submit">Submit</button> 
+        <button type="button" id="tologin">Login</button>           
+      </form>           
+    </div>
+    
+    <!-- login form -->
+    <div id="login" class="hide">
+      <h3>Login</h3>
+      <form class="login-form">
+        <div class="login-email">
+          <label for="login-email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp" value="jinghuang3333@gmail.com">
+        </div>          
+        <div class="login-password">
+          <label for="login-password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="login-password" value="1234abcd">
+        </div>          
+        <button type="button" id="login-submit">Submit</button> 
+        <button type="button" id="toregister">Register</button>           
+      </form>           
+    </div>
+  </main>
+  <footer>
+    <p>&copy; Slackr</p>
+  </footer>
+  
+</body>
+
+</html>

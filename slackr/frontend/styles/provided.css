@@ -1,0 +1,89 @@
+
+/* base styles, feel free to edit */
+html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+    height: 100%;
+    font-family: -apple-system, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.hide {
+    display: none;
+}
+
+.banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #7230f8;
+    color: white;
+}
+
+
+#register, #login {
+    background-color: #d3d3f4;
+    /* margin-left: 500px;
+    margin-right: 500px; */
+    margin-top: 50px;
+    height: 500px;
+    border-radius: 10px;
+}
+
+.register-email, .register-name, .register-password, .regitser-confirm-password {
+    margin-bottom: 10px;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#dashboard-banner {
+    display: flex;
+    justify-content: space-between;
+}
+
+#channel {
+    border: 1px solid black;
+    border-radius: 10px;
+    height: 80px;
+    background-color: #d3d3f4;
+    margin: 10px;
+}
+
+#channel h4 {
+    cursor: pointer;
+}
+
+#dashboard-channels {
+    display: flex;
+    justify-content: space-between;
+}
+
+#channels-list {
+    /* width: 30%; */
+    display: flex;
+    flex-direction: column;
+}
+
+#public-channels, #private-channels {
+    width: 30%;
+}
+
+#channel-create {
+    display: flex;
+    align-items: center;
+}
+
+#create-channel {
+    margin-left: 10px;
+}
+
+@media (max-width: 600px) {
+    #public-channels, #private-channels {
+        width: 50%;         
+    }
+}
+

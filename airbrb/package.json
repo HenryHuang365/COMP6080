@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@mui/icons-material": "^5.14.16"
+  },
+  "devDependencies": {
+    "cypress": "^13.5.1",
+    "cypress-file-upload": "^5.0.8"
+  }
+}
